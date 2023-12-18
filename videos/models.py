@@ -19,3 +19,7 @@ class Video(models.Model):
     @property
     def like_count(self):
         return self.likevideos.count()
+
+    @property
+    def comment_count(self):
+        return self.videocomments.count()

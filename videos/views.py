@@ -19,6 +19,7 @@ class VideoListCreateView(generics.ListCreateAPIView):
     ]
     ordering_fields = [
         'like_count',
+        'comment_count',
         'likevideos__created_at',
     ]
 

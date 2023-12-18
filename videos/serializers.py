@@ -9,10 +9,11 @@ class VideoSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     likevideo_id = serializers.SerializerMethodField()
     like_count = serializers.ReadOnlyField()
+    comment_count = serializers.ReadOnlyField()
 
     class Meta:
         model = Video
-        fields = ['id', 'owner', 'title', 'video_file', 'description', 'created_at', 'updated_at', 'is_owner','likevideo_id','like_count']
+        fields = ['id', 'owner', 'title', 'video_file', 'description', 'created_at', 'updated_at', 'is_owner','likevideo_id','like_count','comment_count']
 
 
     def validate_video_file(self, value):
@@ -48,3 +49,5 @@ class VideoSerializer(serializers.ModelSerializer):
     def get_likevideo_count(self, obj):
         return obj.like_count
     
+    def get_comment_count(self, obj):
+        return obj.comment_count

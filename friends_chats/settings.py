@@ -57,7 +57,9 @@ INSTALLED_APPS = [
     'posts',
     'followers',
     'friends',
-    'photos',        
+    'photos', 
+    'videos',
+           
 
 ]
 

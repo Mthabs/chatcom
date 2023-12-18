@@ -9,6 +9,19 @@ class VideoListCreateView(generics.ListCreateAPIView):
     queryset = Video.objects.all()
     serializer_class = VideoSerializer
 
+    filter_backends = [
+        filters.OrderingFilter,
+        filters.SearchFilter,
+    ]
+    search_fields = [
+        'owner__username',
+        'title',
+    ]
+    ordering_fields = [
+        'like_count',
+        'likevideos__created_at',
+    ]
+
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 

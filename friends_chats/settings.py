@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-import dj_database_url
 
 if os.path.exists('env.py'):
     import env
@@ -37,7 +36,7 @@ SECRET_KEY = 'django-insecure-s&%#o_n)r@l7o-)h+niz5w*ic6xkvvvmx*n!rmvm0ji*6c@c!+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['8000-mthabs-chatcom-0fykrn98fh.us2.codeanyapp.com']
 
 
 # Application definition
@@ -53,7 +52,7 @@ INSTALLED_APPS = [
     'cloudinary',
 
     'profiles',
-    
+
 ]
 
 MIDDLEWARE = [

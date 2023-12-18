@@ -1,13 +1,16 @@
 from rest_framework import serializers
 from .models import UserProfile
+from followers.models import Follower
 
 class UserProfileSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
-    
+    posts_count = serializers.SerializerMethodField()
+    followers_count = serializers.SerializerMethodField()
+
     class Meta:
         model = UserProfile
-        fields = ['id', 'owner', 'created_at', 'updated_at', 'name', 'content','is_owner', 'profile_picture', 'cover_photo']
+        fields = ['id', 'owner', 'created_at', 'updated_at', 'name', 'content','is_owner', 'profile_picture', 'cover_photo', 'posts_count', 'followers_count']
 
     def to_representation(self, instance):
         if isinstance(instance, UserProfile):
@@ -29,3 +32,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
             request = self.context.get('request')
             return request.user == obj.owner
         return False
+
+    def get_posts_count(self, obj):
+        return obj.owner.posts.all().count()
+
+    def get_followers_count(self, obj):
+        return Follower.objects.filter(followed=obj.owner).count()

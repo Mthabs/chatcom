@@ -27,6 +27,7 @@ urlpatterns = [
     path('api/', include('photos.urls')),
     path('api/', include('videos.urls')),
     path('api/', include('likes.urls')),
-    path('api/', include('likephotos.urls')),  
+    path('api/', include('likephotos.urls')),
+    path('api/', include('likevideos.urls')),  
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
 ]

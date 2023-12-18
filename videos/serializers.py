@@ -2,14 +2,17 @@ from rest_framework import serializers
 from django.core.validators import FileExtensionValidator
 from django.core.exceptions import ValidationError as DjangoValidationError
 from .models import Video
+from .models import Likevideo
 
 class VideoSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
+    likevideo_id = serializers.SerializerMethodField()
+    like_count = serializers.ReadOnlyField()
 
     class Meta:
         model = Video
-        fields = ['id', 'owner', 'title', 'video_file', 'description', 'created_at', 'updated_at', 'is_owner']
+        fields = ['id', 'owner', 'title', 'video_file', 'description', 'created_at', 'updated_at', 'is_owner','likevideo_id','like_count']
 
 
     def validate_video_file(self, value):
@@ -33,4 +36,15 @@ class VideoSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         return request.user == obj.owner
 
+
+    def get_likevideo_id(self, obj):
+        user = self.context['request'].user
+        try:
+            likevideo_instance = Likevideo.objects.get(owner=user, video=obj)
+            return likevideo_instance.id
+        except Likevideo.DoesNotExist:
+            return None
+
+    def get_likevideo_count(self, obj):
+        return obj.like_count
     

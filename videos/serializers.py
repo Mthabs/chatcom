@@ -12,7 +12,7 @@ class VideoSerializer(serializers.ModelSerializer):
         fields = ['id', 'owner', 'title', 'video_file', 'description', 'created_at', 'updated_at', 'is_owner']
 
 
-    def validate_video_file(self, value):
+   def validate_video_file(self, value):
         # Check file extension
         valid_extensions = ['mp4', 'avi', 'mkv', 'mp3']  
         extension_validator = FileExtensionValidator(allowed_extensions=valid_extensions)
@@ -27,10 +27,6 @@ class VideoSerializer(serializers.ModelSerializer):
         if value.size > max_size:
             raise serializers.ValidationError(f"File size too large. Max size is {max_size} bytes.")
 
-        return value
-
-    def get_is_owner(self, obj):
-        request = self.context.get('request')
-        return request.user == obj.owner
+        return value 
 
     

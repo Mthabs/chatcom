@@ -9,7 +9,7 @@ class UserProfile(models.Model):
     content = models.TextField(blank=True)
     profile_picture = models.ImageField(upload_to='image/', null=True, blank=True)
     cover_photo = models.ImageField(upload_to='image/', null=True, blank=True)
-
+    
     class Meta:
         ordering = ['-created_at']
 

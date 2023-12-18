@@ -30,6 +30,7 @@ urlpatterns = [
     path('api/', include('likephotos.urls')),
     path('api/', include('likevideos.urls')),
     path('api/', include('comments.urls')),
-    path('api/', include('photocomments.urls')),  
+    path('api/', include('photocomments.urls')), 
+    path('api/', include('videocomments.urls')), 
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
 ]

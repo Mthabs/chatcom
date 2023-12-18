@@ -10,3 +10,8 @@ class PhotocommentListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+class PhotocommentDetailView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
+    queryset = Photocomment.objects.all()
+    serializer_class = PhotocommentSerializer

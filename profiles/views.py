@@ -7,6 +7,7 @@ from .serializers import UserProfileSerializer
 class UserProfileListCreateView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
     serializer_class = UserProfileSerializer
+    
     filter_backends = [
         filters.OrderingFilter,
         filters.SearchFilter,
@@ -20,6 +21,7 @@ class UserProfileListCreateView(generics.ListCreateAPIView):
         'posts_count',
         'followers_count',
         'following_count',
+        'friends_count',
         'owner__following__created_at',
         'owner__followed__created_at',
     ]
@@ -28,7 +30,8 @@ class UserProfileListCreateView(generics.ListCreateAPIView):
         queryset = UserProfile.objects.annotate(
             posts_count=Count('owner__posts', distinct=True),
             followers_count=Count('owner__following', distinct=True),  
-            following_count=Count('owner__followed', distinct=True)    
+            following_count=Count('owner__followed', distinct=True),
+            friends_count=Count('owner__friendships', distinct=True)    
         )
         return queryset
 
@@ -48,6 +51,7 @@ class UserProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
         queryset = UserProfile.objects.annotate(
             posts_count=Count('owner__posts', distinct=True),
             followers_count=Count('owner__following', distinct=True),  
-            following_count=Count('owner__followed', distinct=True)   
+            following_count=Count('owner__followed', distinct=True),
+            friends_count=Count('owner__friendships', distinct=True)   
         )
         return queryset

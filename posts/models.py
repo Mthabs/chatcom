@@ -25,12 +25,13 @@ class Post(models.Model):
         max_length=32,
         choices=IMAGE_FILTER_CHOICES,
         default='normal',
+        blank=True,
         null=True
     )
     class Meta:
-        verbose_name = "Post"
-        verbose_name_plural = "Posts"
         ordering = ['-created_at']
 
     def __str__(self):
         return f"Post by {self.id} at {self.header}"
+
+        blank=True,

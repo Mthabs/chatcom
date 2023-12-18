@@ -29,4 +29,8 @@ class VideoSerializer(serializers.ModelSerializer):
 
         return value 
 
+    def get_is_owner(self, obj):
+        request = self.context.get('request')
+        return request.user == obj.owner
+
     

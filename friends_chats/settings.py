@@ -59,7 +59,8 @@ INSTALLED_APPS = [
     'friends',
     'photos', 
     'videos',
-    'likes',   
+    'likes',
+    'likephotos',   
 
 ]
 

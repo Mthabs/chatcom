@@ -1,5 +1,7 @@
+from django.db.models import Count
 from django.db import models
 from django.contrib.auth.models import User
+from followers.models import Follower
 
 class UserProfile(models.Model):
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -15,3 +17,6 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"{self.owner}'s profile"
+
+    def get_posts_count(self):
+        return self.posts.all().count()

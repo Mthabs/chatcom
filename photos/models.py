@@ -15,3 +15,5 @@ class Photo(models.Model):
 
     def __str__(self):
         return f"Photo by {self.id} at {self.caption}"
+
+    

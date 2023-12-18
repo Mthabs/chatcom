@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework import generics, permissions
+from friends_chats.permissions import IsOwnerOrReadOnly
+from .models import Likevideo
+from .serializers import LikevideoSerializer
 
-# Create your views here.
+class LikevideoCreateView(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
+    queryset = Likevideo.objects.all()
+    serializer_class = LikevideoSerializer

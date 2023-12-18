@@ -42,3 +42,7 @@ class PostSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError('Invalid image file.') from e
 
         return value
+
+    def get_is_owner(self, obj):
+        request = self.context.get('request')
+        return request.user == obj.owner

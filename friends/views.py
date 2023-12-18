@@ -1,3 +1,13 @@
-from django.shortcuts import render
+from rest_framework import generics, permissions
+from friends_chats.permissions import IsOwnerOrReadOnly
+from .models import Friend
+from .serializers import FriendSerializer
 
-# Create your views here.
+
+class FriendListCreateView(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Friend.objects.all()
+    serializer_class = FriendSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)

@@ -23,5 +23,6 @@ urlpatterns = [
     path('api/', include('profiles.urls')),
     path('api/', include('posts.urls')),
     path('api/', include('followers.urls')),
+    path('api/', include('friends.urls')),
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
 ]

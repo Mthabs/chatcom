@@ -22,3 +22,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
             return representation
         return {}
+
+    def get_is_owner(self, obj):
+        if isinstance(obj, UserProfile):
+            request = self.context.get('request')
+            return request.user == obj.owner
+        return False

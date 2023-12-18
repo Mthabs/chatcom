@@ -17,6 +17,7 @@ class CommentSerializer(serializers.ModelSerializer):
     def get_is_owner(self, obj):
         request = self.context.get('request')
         return request.user == obj.owner
+
     
-    class CommentDetailSerializer(CommentSerializer):
+class CommentDetailSerializer(CommentSerializer):
     post = serializers.ReadOnlyField(source='post.id')

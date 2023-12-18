@@ -64,7 +64,7 @@ INSTALLED_APPS = [
     'likevideos',
     'comments',
     'photocomments',
-       
+    'videocomments',
 
 ]
 

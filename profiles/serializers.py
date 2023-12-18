@@ -3,10 +3,11 @@ from .models import UserProfile
 
 class UserProfileSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-
+    is_owner = serializers.SerializerMethodField()
+    
     class Meta:
         model = UserProfile
-        fields = ['id', 'owner', 'created_at', 'updated_at', 'name', 'content', 'profile_picture', 'cover_photo']
+        fields = ['id', 'owner', 'created_at', 'updated_at', 'name', 'content','is_owner', 'profile_picture', 'cover_photo']
 
     def to_representation(self, instance):
         if isinstance(instance, UserProfile):

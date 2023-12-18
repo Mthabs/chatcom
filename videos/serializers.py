@@ -12,7 +12,7 @@ class VideoSerializer(serializers.ModelSerializer):
         fields = ['id', 'owner', 'title', 'video_file', 'description', 'created_at', 'updated_at', 'is_owner']
 
 
-   def validate_video_file(self, value):
+    def validate_video_file(self, value):
         # Check file extension
         valid_extensions = ['mp4', 'avi', 'mkv', 'mp3']  
         extension_validator = FileExtensionValidator(allowed_extensions=valid_extensions)

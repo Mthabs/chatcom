@@ -1,17 +1,21 @@
 from rest_framework import serializers
 from .models import UserProfile
 from followers.models import Follower
+from friends.models import Friend
 
 class UserProfileSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     following_id = serializers.SerializerMethodField()
+    friendship_id = serializers.SerializerMethodField()
     posts_count = serializers.SerializerMethodField()
     followers_count = serializers.SerializerMethodField()
     following_count = serializers.SerializerMethodField()
+    friends_count = serializers.SerializerMethodField()
+
     class Meta:
         model = UserProfile
-        fields = ['id', 'owner', 'created_at', 'updated_at', 'name', 'content','is_owner', 'profile_picture', 'cover_photo', 'posts_count', 'following_id', 'followers_count', 'following_count']
+        fields = ['id', 'owner', 'created_at', 'updated_at', 'name', 'content','is_owner', 'profile_picture', 'cover_photo', 'posts_count', 'following_id', 'friendship_id', 'followers_count', 'following_count', 'friends_count']
 
     def to_representation(self, instance):
         if isinstance(instance, UserProfile):
@@ -41,6 +45,18 @@ class UserProfileSerializer(serializers.ModelSerializer):
                 following = Follower.objects.get(owner=user, followed=obj.owner)
                 return following.id
             except Follower.DoesNotExist:
+                return None
+        return None
+
+    def get_friendship_id(self, obj):
+        if isinstance(obj, UserProfile):
+            user = self.context['request'].user
+            try:
+                friendship = Friend.objects.get(
+                    owner=user, friend=obj.owner
+                )
+                return friendship.id
+            except Friend.DoesNotExist:
                 return None
         return None
 

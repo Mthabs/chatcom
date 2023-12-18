@@ -1,3 +1,4 @@
+from django.db.models import Count
 from rest_framework import generics, permissions, filters
 from friends_chats.permissions import IsOwnerOrReadOnly
 from .models import Post
@@ -17,7 +18,8 @@ class PostListView(generics.ListCreateAPIView):
         'header',
     ]
     ordering_fields = [
-        
+        'likes_count',
+        'likes__created_at',
     ]
 
     def perform_create(self, serializer):

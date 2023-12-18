@@ -35,3 +35,7 @@ class Post(models.Model):
         return f"Post by {self.id} at {self.header}"
 
         blank=True,
+
+    @property
+    def like_count(self):
+        return self.likes.count()

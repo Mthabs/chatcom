@@ -1,3 +1,4 @@
+from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
 from .models import Videocomment
 
@@ -7,6 +8,8 @@ class VideocommentSerializer(serializers.ModelSerializer):
     profile_id = serializers.ReadOnlyField(source='owner.userprofile.id')
     profile_picture = serializers.ReadOnlyField(source='owner.userprofile.profile_picture_url')
     is_owner = serializers.SerializerMethodField()
+    created_at = serializers.SerializerMethodField()
+    updated_at = serializers.SerializerMethodField()
 
     class Meta:
         model = Videocomment
@@ -16,5 +19,11 @@ class VideocommentSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         return request.user == obj.owner
 
+    def get_created_at(self, obj):
+        return naturaltime(obj.created_at)
+    
+    def get_updated_at(self, obj):
+        return naturaltime(obj.updated_at)
+        
 class VideocommentDetailSerializer(VideocommentSerializer):
     video = serializers.ReadOnlyField(source='video.id')

@@ -9,7 +9,19 @@ class PhotoListCreateView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
-
+    
+    filter_backends = [
+        filters.OrderingFilter,
+        filters.SearchFilter,
+    ]
+    search_fields = [
+        'owner__username',
+        'caption',
+    ]
+    ordering_fields = [
+        'like_count',
+        'likephotos__created_at',
+    ]
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 

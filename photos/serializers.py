@@ -1,6 +1,7 @@
 from .models import Photo
 from PIL import Image
 from rest_framework import serializers
+from .models import Likephoto
 import cloudinary.uploader
 
 class PhotoSerializer(serializers.ModelSerializer):

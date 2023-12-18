@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from likevideos.models import Likevideo
 
 class Video(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -14,3 +15,7 @@ class Video(models.Model):
 
     def __str__(self):
         return f"Video by {self.id}: {self.title}"
+
+    @property
+    def like_count(self):
+        return self.likevideos.count()

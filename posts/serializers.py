@@ -24,3 +24,21 @@ class PostSerializer(serializers.ModelSerializer):
             representation['profile_picture'] = default_profile_picture_url
 
         return representation    
+
+    def validate_post_picture(self, value):
+        if value:
+            max_size = 2 * 1024 * 1024  # 2 MB
+            if value.size > max_size:
+                raise serializers.ValidationError('Image size cannot exceed 2 MB.')
+
+            try:
+                with Image.open(value) as img:
+                    width, height = img.size
+                    if height > 4096:
+                        raise serializers.ValidationError('Image height cannot exceed 4096px.')
+                    if width > 4096:
+                        raise serializers.ValidationError('Image width cannot exceed 4096px.')
+            except (IOError, OSError) as e:
+                raise serializers.ValidationError('Invalid image file.') from e
+
+        return value

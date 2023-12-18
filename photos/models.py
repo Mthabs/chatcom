@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from likephotos.models import Likephoto
 
 class Photo(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -16,4 +17,6 @@ class Photo(models.Model):
     def __str__(self):
         return f"Photo by {self.id} at {self.caption}"
 
-    
+    @property
+    def like_count(self):
+        return self.likephotos.count()

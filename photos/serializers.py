@@ -9,10 +9,11 @@ class PhotoSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     likephoto_id = serializers.SerializerMethodField()
     like_count = serializers.ReadOnlyField()
+    comment_count = serializers.ReadOnlyField()
 
     class Meta:
         model = Photo
-        fields = ['id', 'owner', 'image', 'caption', 'likephoto_id', 'created_at', 'updated_at', 'is_owner','like_count']
+        fields = ['id', 'owner', 'image', 'caption', 'likephoto_id', 'created_at', 'updated_at', 'is_owner','like_count', 'comment_count']
 
 
     def validate_image(self, value):
@@ -38,3 +39,6 @@ class PhotoSerializer(serializers.ModelSerializer):
     
     def get_likephotos_count(self, obj):
         return obj.like_count
+
+    def get_comment_count(self, obj):
+        return obj.comment_count

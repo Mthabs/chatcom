@@ -20,6 +20,7 @@ class PhotoListCreateView(generics.ListCreateAPIView):
     ]
     ordering_fields = [
         'like_count',
+        'comment_count',
         'likephotos__created_at',
     ]
     def perform_create(self, serializer):

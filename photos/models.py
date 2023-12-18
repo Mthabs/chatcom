@@ -8,6 +8,7 @@ class Photo(models.Model):
     caption = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
 
     class Meta:
         ordering = ['-created_at']
@@ -20,3 +21,7 @@ class Photo(models.Model):
     @property
     def like_count(self):
         return self.likephotos.count()
+
+    @property
+    def comment_count(self):
+        return self.photocomments.count()

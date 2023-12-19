@@ -12,7 +12,7 @@ class LikephotoCreateView(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 class LikephotoUnlikeView(generics.RetrieveDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
     queryset = Likephoto.objects.all()
     serializer_class = LikephotoSerializer
     

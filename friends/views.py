@@ -5,7 +5,7 @@ from .serializers import FriendSerializer
 
 
 class FriendListCreateView(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
     queryset = Friend.objects.all()
     serializer_class = FriendSerializer
 
@@ -14,7 +14,7 @@ class FriendListCreateView(generics.ListCreateAPIView):
 
 
 class FriendUnfriendView(generics.RetrieveDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsOwnerOrReadOnly]
     queryset = Friend.objects.all()
     serializer_class = FriendSerializer
     

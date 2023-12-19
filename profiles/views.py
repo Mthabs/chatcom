@@ -5,7 +5,6 @@ from .models import UserProfile
 from .serializers import UserProfileSerializer
 
 class UserProfileListCreateView(generics.ListCreateAPIView):
-    permission_classes = [IsOwnerOrReadOnly]
     serializer_class = UserProfileSerializer
     
     filter_backends = [
@@ -45,7 +44,7 @@ class UserProfileListCreateView(generics.ListCreateAPIView):
 
 
 class UserProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
     serializer_class = UserProfileSerializer 
     def get_queryset(self):
         queryset = UserProfile.objects.annotate(

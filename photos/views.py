@@ -27,6 +27,6 @@ class PhotoListCreateView(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 class PhotoDetailView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer

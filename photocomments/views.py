@@ -15,6 +15,6 @@ class PhotocommentListCreateView(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 class PhotocommentDetailView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
     queryset = Photocomment.objects.all()
     serializer_class = PhotocommentSerializer

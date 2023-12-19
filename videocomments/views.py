@@ -15,6 +15,6 @@ class VideocommentListCreateView(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 class VideocommentDetailView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
     queryset = Videocomment.objects.all()
     serializer_class = VideocommentSerializer

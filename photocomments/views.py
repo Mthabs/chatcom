@@ -3,8 +3,10 @@ from rest_framework import generics, permissions
 from friends_chats.permissions import IsOwnerOrReadOnly
 from .models import Photocomment
 from .serializers import PhotocommentSerializer
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 class PhotocommentListCreateView(generics.ListCreateAPIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
     queryset = Photocomment.objects.all()
     serializer_class = PhotocommentSerializer
@@ -15,6 +17,7 @@ class PhotocommentListCreateView(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 class PhotocommentDetailView(generics.RetrieveUpdateDestroyAPIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Photocomment.objects.all()
     serializer_class = PhotocommentSerializer

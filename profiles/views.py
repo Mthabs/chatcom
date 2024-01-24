@@ -3,8 +3,10 @@ from rest_framework import generics, permissions, filters
 from friends_chats.permissions import IsOwnerOrReadOnly
 from .models import UserProfile
 from .serializers import UserProfileSerializer
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 class UserProfileListCreateView(generics.ListCreateAPIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
     serializer_class = UserProfileSerializer
     
     filter_backends = [
@@ -44,6 +46,7 @@ class UserProfileListCreateView(generics.ListCreateAPIView):
 
 
 class UserProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = UserProfileSerializer 
     def get_queryset(self):

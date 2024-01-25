@@ -63,7 +63,7 @@ DEBUG = 'DEV' in os.environ
 
 ALLOWED_HOSTS = ['8000-mthabs-chatcom-zplmp0jtbu.us2.codeanyapp.com','chatcom-ec4ad238849d.herokuapp.com']
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  r
+    "http://localhost:3000",  
     
 ]
 

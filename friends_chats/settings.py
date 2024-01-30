@@ -47,6 +47,7 @@ JWT_AUTH_SECURE = True
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
+ACCESS_TOKEN_LIFETIME = 15 * 24 * 60 * 60
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'friends_chats.serializers.CurrentUserSerializer'
@@ -63,8 +64,8 @@ DEBUG = 'DEV' in os.environ
 
 ALLOWED_HOSTS = ['8000-mthabs-chatcom-zplmp0jtbu.us2.codeanyapp.com','chatcom-ec4ad238849d.herokuapp.com']
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  
-    
+    "http://localhost:3000",
+    "https://chatcomm-9a1693c74c82.herokuapp.com/",  
 ]
 
 # Application definition
@@ -145,7 +146,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'friends_chats.wsgi.application'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 
 # Database

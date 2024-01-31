@@ -63,10 +63,11 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = 'DEV' in os.environ
 
 ALLOWED_HOSTS = ['8000-mthabs-chatcom-zplmp0jtbu.us2.codeanyapp.com','chatcom-ec4ad238849d.herokuapp.com']
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "https://chatcomm-9a1693c74c82.herokuapp.com",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",
+#     "https://chatcomm-9a1693c74c82.herokuapp.com",  
+# ]
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 

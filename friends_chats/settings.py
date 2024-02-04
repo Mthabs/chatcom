@@ -67,6 +67,7 @@ ALLOWED_HOSTS = ['8000-mthabs-chatcom-zplmp0jtbu.us2.codeanyapp.com',
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://chatcomm-9a1693c74c82.herokuapp.com",
+    "https://3000-mthabs-chatscom-nuvrdg7dpg.us2.codeanyapp.com/",
 ]
 
 # Application definition
@@ -87,8 +88,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
-    'alauth.socialaccount',
-    'djrest_auth.registration'
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
     'corsheaders',
     'drf_yasg',
 
@@ -109,7 +110,7 @@ INSTALLED_APPS = [
 SITE_ID = 1
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
-    'django.mileware.security.SecurityMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

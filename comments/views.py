@@ -3,10 +3,8 @@ from rest_framework import generics, permissions
 from friends_chats.permissions import IsOwnerOrReadOnly
 from .models import Comment
 from .serializers import CommentSerializer
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 class CommentListCreateView(generics.ListCreateAPIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
@@ -17,7 +15,6 @@ class CommentListCreateView(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 class CommentDetailView(generics.RetrieveUpdateDestroyAPIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer   

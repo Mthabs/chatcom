@@ -3,10 +3,8 @@ from rest_framework import generics, permissions, filters
 from friends_chats.permissions import IsOwnerOrReadOnly
 from .models import Post
 from .serializers import PostSerializer
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 class PostListView(generics.ListCreateAPIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -29,7 +27,6 @@ class PostListView(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Post.objects.all()
     serializer_class = PostSerializer

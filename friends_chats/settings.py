@@ -86,7 +86,7 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'django.contrib.sites',
     'allauth',
-    'allauth.accunt',
+    'allauth.account',
     'alauth.socialaccount',
     'djrest_auth.registration'
     'corsheaders',

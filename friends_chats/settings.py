@@ -65,10 +65,9 @@ DEBUG = 'DEV' in os.environ
 ALLOWED_HOSTS = ['8000-mthabs-chatcom-zplmp0jtbu.us2.codeanyapp.com','chatcom-ec4ad238849d.herokuapp.com']
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://chatcomm-9a1693c74c82.herokuapp.com",  
+    "https://chatcomm-9a1693c74c82.herokuapp.com",
 ]
-#CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -109,7 +108,7 @@ INSTALLED_APPS = [
 ]
 SITE_ID = 1
 MIDDLEWARE = [
-    #'corsheaders.middleware.CorsMiddleware',  
+    'corsheaders.middleware.CorsMiddleware',  
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

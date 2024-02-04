@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication', 
+        'rest_framework.authentication.SessionAuthentication',
     ] if 'DEV' in os.environ else [
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ],
@@ -62,7 +62,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEV' in os.environ
 
-ALLOWED_HOSTS = ['8000-mthabs-chatcom-zplmp0jtbu.us2.codeanyapp.com','chatcom-ec4ad238849d.herokuapp.com']
+ALLOWED_HOSTS = ['8000-mthabs-chatcom-zplmp0jtbu.us2.codeanyapp.com',
+                 'chatcom-ec4ad238849d.herokuapp.com']
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://chatcomm-9a1693c74c82.herokuapp.com",
@@ -81,13 +82,13 @@ INSTALLED_APPS = [
     'cloudinary',
     'rest_framework',
     'django_filters',
-    'rest_framework.authtoken', 
+    'rest_framework.authtoken',
     'dj_rest_auth',
-    'django.contrib.sites', 
-    'allauth', 
-    'allauth.account', 
-    'allauth.socialaccount', 
-    'dj_rest_auth.registration',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.accunt',
+    'alauth.socialaccount',
+    'djrest_auth.registration'
     'corsheaders',
     'drf_yasg',
 
@@ -96,11 +97,10 @@ INSTALLED_APPS = [
     'posts',
     'followers',
     'friends',
-    'photos', 
+    'photos',
     'videos',
     'likes',
-    'likephotos',
-    'likevideos',
+    'likephotos',    'likevideos',
     'comments',
     'photocomments',
     'videocomments',
@@ -108,8 +108,8 @@ INSTALLED_APPS = [
 ]
 SITE_ID = 1
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  
-    'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.mileware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -118,7 +118,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 if 'CLIENT_ORIGIN_DEV' in os.environ:
-    extracted_url = re.match(r'^([^.]+)', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
+    extracted_url = re.match(r'^([^.]+)', os.environ.
+                             get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
 
     CORS_ALLOWED_ORIGIN_REGEXES = [
         rf"{extracted_url}.(eu|us)\d+\.codeanyapp\.com$",

@@ -113,14 +113,24 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-if 'CLIENT_ORIGIN_DEV' in os.environ:
-    extracted_url = re.match(r'^([^.]+)', os.environ.
-                             get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
+# if 'CLIENT_ORIGIN_DEV' in os.environ:
+#     extracted_url = re.match(r'^([^.]+)', os.environ.
+#                              get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
 
-    CORS_ALLOWED_ORIGIN_REGEXES = [
+#     CORS_ALLOWED_ORIGIN_REGEXES = [
+#         rf"{extracted_url}.(eu|us)\d+\.codeanyapp\.com$",
+#     ]
+# CORS_ALLOW_CREDENTIALS = True
+if 'CLIENT_ORIGIN_DEV' in os.environ:
+    extracted_url = re.match(r'^([^.]+)', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
+
+    CORS_ALLOWED_ORIGINS = [
         rf"{extracted_url}.(eu|us)\d+\.codeanyapp\.com$",
+        "https://chatcom-ec4ad238849d.herokuapp.com/",
     ]
+
 CORS_ALLOW_CREDENTIALS = True
+
 
 ROOT_URLCONF = 'friends_chats.urls'
 

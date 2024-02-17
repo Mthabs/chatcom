@@ -3,12 +3,15 @@ from friends_chats.permissions import IsOwnerOrReadOnly
 from rest_framework.response import Response
 from .models import Photo
 from .serializers import PhotoSerializer
+from rest_framework.parsers import MultiPartParser, FormParser
 
 
 class PhotoListCreateView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
+    parser_classes = [MultiPartParser, FormParser]
+
     
     filter_backends = [
         filters.OrderingFilter,
@@ -24,7 +27,7 @@ class PhotoListCreateView(generics.ListCreateAPIView):
         'likephotos__created_at',
     ]
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        serializer.save(owner=self.request.user, image=self.request.data.get('image'))
 
 class PhotoDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]

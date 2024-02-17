@@ -1,6 +1,6 @@
 """friends_chats URL Configuration
 
-The urlpatterns list routes URLs to views. For more information please see:
+The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
 Examples:
 Function views
@@ -54,7 +54,8 @@ urlpatterns = [
     path('', include('comments.urls')),
     path('', include('photocomments.urls')), 
     path('', include('videocomments.urls')), 
-    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),#api endpoints
+    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
+    #api endpoints
     path('api/', include('friends.urls')),  # Replace 'your_app' with the actual name of your app
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),

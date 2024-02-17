@@ -5,7 +5,7 @@ from followers.models import Follower
 from friends.models import Friend
 
 class UserProfile(models.Model):
-    owner = models.OneToOneField(User, on_delete=models.CASCADE)
+    owner = models.OneToOneField(User, on_delete=models.CASCADE, related_name='userprofile')
     name = models.CharField(max_length=255, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

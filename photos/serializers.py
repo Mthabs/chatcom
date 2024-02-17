@@ -15,7 +15,9 @@ class PhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
         fields = ['id', 'owner', 'image', 'caption', 'likephoto_id', 'created_at', 'updated_at', 'is_owner','like_count', 'comment_count']
-
+        extra_kwargs = {
+            'image': {'required': False},  # Make the image field optional
+        }
 
     def validate_image(self, value):
         # Check file size

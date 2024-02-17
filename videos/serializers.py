@@ -14,8 +14,9 @@ class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
         fields = ['id', 'owner', 'title', 'video_file', 'description', 'created_at', 'updated_at', 'is_owner','likevideo_id','like_count','comment_count']
-
-
+        extra_kwargs = {
+            'video_file': {'required': False},  # Make the image field optional
+        }
     # def validate_video_file(self, value):
     #     # Check file extension
     #     valid_extensions = ['mp4', 'avi', 'mkv', 'mp3']  

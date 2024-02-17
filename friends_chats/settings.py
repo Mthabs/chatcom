@@ -14,24 +14,23 @@ from pathlib import Path
 import os
 import dj_database_url
 
-if os.path.exists('env.py'):
-    import env
+# if os.path.exists('env.py'):
+#     import env
 
-CLOUDINARY_STORAGE = {
-    'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
-}
+# CLOUDINARY_STORAGE = {
+#     'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
+# }
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ] if 'DEV' in os.environ else [
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
-    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [( 
+        'rest_framework.authentication.SessionAuthentication' 
+        if 'DEV' in os.environ 
+        else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+    )],
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
@@ -47,7 +46,7 @@ JWT_AUTH_SECURE = True
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
-ACCESS_TOKEN_LIFETIME = 15*24*60*60
+ACCESS_TOKEN_LIFETIME = 15*24*60*60 
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'friends_chats.serializers.CurrentUserSerializer'
@@ -57,14 +56,17 @@ REST_AUTH_SERIALIZERS = {
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
-
+# SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = 'django-insecure-nvowr=2+e_x8u4djfezdklk6k&9@=e4e_it+8^y#v9m1n81mj!'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'DEV' in os.environ
+DEBUG = True
 
-ALLOWED_HOSTS = ['8000-mthabs-chatcom-zplmp0jtbu.us2.codeanyapp.com',
-                 'chatcom-ec4ad238849d.herokuapp.com']
-
+ALLOWED_HOSTS = ['8000-mthabs-chatcom-zplmp0jtbu.us2.codeanyapp.com','chatcom-ec4ad238849d.herokuapp.com','127.0.0.1']
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://chatcomm-9a1693c74c82.herokuapp.com",  
+]
+CORS_ORIGIN_ALLOW_ALL = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -78,33 +80,36 @@ INSTALLED_APPS = [
     'cloudinary',
     'rest_framework',
     'django_filters',
-    'rest_framework.authtoken',
+    'rest_framework.authtoken', 
     'dj_rest_auth',
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+    'django.contrib.sites', 
+    'allauth', 
+    'allauth.account', 
+    'allauth.socialaccount', 
     'dj_rest_auth.registration',
     'corsheaders',
-    'drf_yasg',
 
 
     'profiles',
     'posts',
     'followers',
     'friends',
-    'photos',
+    'photos', 
     'videos',
     'likes',
-    'likephotos',    'likevideos',
+    'likephotos',
+    'likevideos',
     'comments',
     'photocomments',
     'videocomments',
 
+    #api endpoints
+    'drf_yasg',
+
 ]
 SITE_ID = 1
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -113,24 +118,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-# if 'CLIENT_ORIGIN_DEV' in os.environ:
-#     extracted_url = re.match(r'^([^.]+)', os.environ.
-#                              get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
-
-#     CORS_ALLOWED_ORIGIN_REGEXES = [
-#         rf"{extracted_url}.(eu|us)\d+\.codeanyapp\.com$",
-#     ]
-# CORS_ALLOW_CREDENTIALS = True
 if 'CLIENT_ORIGIN_DEV' in os.environ:
     extracted_url = re.match(r'^([^.]+)', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
 
-    CORS_ALLOWED_ORIGINS = [
+    CORS_ALLOWED_ORIGIN_REGEXES = [
         rf"{extracted_url}.(eu|us)\d+\.codeanyapp\.com$",
-        "https://chatcom-ec4ad238849d.herokuapp.com/",
     ]
-
 CORS_ALLOW_CREDENTIALS = True
-
 
 ROOT_URLCONF = 'friends_chats.urls'
 
@@ -159,17 +153,17 @@ ACCOUNT_EMAIL_VERIFICATION = 'optional'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if 'DEV' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+# if 'DEV' in os.environ:
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
-    DATABASES = {
-        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-    }
+}
+# else:
+#     DATABASES = {
+#         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+#     }
 
 
 # Password validation
@@ -209,7 +203,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dnt7oro5y',
+    'API_KEY': '427836411839368',
+    'API_SECRET': 'HEvssJ6V-IgG32HhY6i_p_vosHA',
+}
 
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
